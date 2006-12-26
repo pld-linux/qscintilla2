@@ -39,7 +39,7 @@ Requires:	QtGui-devel
 
 %description devel
 This package contains the header files necessary to develop
-applications using QScintilla2 - header files.
+applications using QScintilla2.
 
 %package -n QtDesigner-plugin-%{name}
 Summary:	QScintilla2 plugin for Qt Designer
@@ -77,8 +77,7 @@ Python bindings for the QScintilla2 - development files.
 %build
 cd Qt4
 qt4-qmake qscintilla.pro
-%{__make} \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
+%{__make}
 cd -
 
 cd designer-Qt4
