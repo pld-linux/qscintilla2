@@ -5,6 +5,7 @@
 %define		scintilla_ver	1.71
 %define		_snap		20061220
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
+Summary(pl):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2
 Release:	0.1
@@ -30,9 +31,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 QScintilla2 is a port to Qt of the Scintilla editing component.
 This version of QScintilla is based on Scintilla v%{scintilla_ver}.
 
+%description -l pl
+QScintilla2 to port komponentu edytora Scintilla dla biblioteki Qt.
+Ta wersja QScintilli jest oparta na Scintilli %{scintilla_ver}.
+
 %package devel
 Summary:	Development files for the QScintilla2
-Summary(pl):	Pliki nag³ówkowe dla QScintilla2
+Summary(pl):	Pliki nag³ówkowe dla komponentu QScintilla2
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	QtGui-devel
@@ -41,8 +46,13 @@ Requires:	QtGui-devel
 This package contains the header files necessary to develop
 applications using QScintilla2.
 
+%description devel -l pl
+Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia programów z
+u¿yciem komponentu QScintilla2.
+
 %package -n QtDesigner-plugin-%{name}
 Summary:	QScintilla2 plugin for Qt Designer
+Summary(pl):	Wtyczka QScintilla2 dla Qt Designera
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	QtDesigner
@@ -51,8 +61,14 @@ Requires:	QtDesigner
 QScintilla2 plugin for Qt Designer that allows QScintilla instances
 to be included in GUI designs just like any other Qt widget.
 
+%description -n QtDesigner-plugin-%{name} -l pl
+Wtyczka WScintilla2 dla Qt Designera pozwalaj±ca na w³±czanie
+instancji QScintilli w projekty GUI w ten sam sposób, co inne widgety
+Qt.
+
 %package -n python-%{name}
 Summary:	Python bindings for the QScintilla2
+Summary(pl):	Wi±zania Pythona dla komponentu QScintilla2
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-PyQt4 >= 4.1.1
@@ -60,14 +76,21 @@ Requires:	python-PyQt4 >= 4.1.1
 %description -n python-%{name}
 Python bindings for the QScintilla2.
 
+%description -n python-%{name} -l pl
+Wi±zania Pythona dla komponentu QScintilla2.
+
 %package -n python-%{name}-devel
 Summary:	Python bindings for the QScintilla2 - development files
+Summary(pl):	Wi±zania Pythona dla komponentu QScintilla2 - pliki programistyczne
 Group:		Development/Languages/Python
 Requires:	python-%{name} = %{version}-%{release}
 Requires:	python-PyQt4-devel >= 4.1.1
 
 %description -n python-%{name}-devel
 Python bindings for the QScintilla2 - development files.
+
+%description -n python-%{name}-devel -l pl
+Wi±zania Pythona dla komponentu QScintilla2 - pliki programistyczne.
 
 %prep
 %setup -q -n QScintilla-%{scintilla_ver}-gpl-%{version}-snapshot-%{_snap}
@@ -105,10 +128,10 @@ rm -rf $RPM_BUILD_ROOT
 
 for file in $RPM_BUILD_ROOT%{_datadir}/locale/*.qm
 do
-	LANG=`echo $file | sed -r 's:.*/[a-zA-Z]*_(.*).qm:\1:'`
-	[ "$LANG" == "pt_br" ] && LANG=pt_BR
-	mkdir -p $RPM_BUILD_ROOT%{_datadir}/locale/$LANG/LC_MESSAGES
-	mv -f $file $RPM_BUILD_ROOT%{_datadir}/locale/$LANG/LC_MESSAGES/qscintilla2.qm
+	lang=`echo $file | sed -r 's:.*/[a-zA-Z]*_(.*).qm:\1:'`
+	[ "$lang" == "pt_br" ] && lang=pt_BR
+	install -d $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES
+	mv -f $file $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES/qscintilla2.qm
 done
 
 %clean
