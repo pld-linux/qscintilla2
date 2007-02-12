@@ -5,7 +5,7 @@
 %define		scintilla_ver	1.71
 %define		_snap		20061220
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
-Summary(pl):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
+Summary(pl.UTF-8):   QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2
 Release:	0.1
@@ -31,13 +31,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 QScintilla2 is a port to Qt of the Scintilla editing component.
 This version of QScintilla is based on Scintilla v%{scintilla_ver}.
 
-%description -l pl
+%description -l pl.UTF-8
 QScintilla2 to port komponentu edytora Scintilla dla biblioteki Qt.
 Ta wersja QScintilli jest oparta na Scintilli %{scintilla_ver}.
 
 %package devel
 Summary:	Development files for the QScintilla2
-Summary(pl):	Pliki nag丑wkowe dla komponentu QScintilla2
+Summary(pl.UTF-8):   Pliki nag艂贸wkowe dla komponentu QScintilla2
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	QtGui-devel
@@ -46,13 +46,13 @@ Requires:	QtGui-devel
 This package contains the header files necessary to develop
 applications using QScintilla2.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag丑wkowe potrzebne do tworzenia program體 z
-u縴ciem komponentu QScintilla2.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nag艂贸wkowe potrzebne do tworzenia program贸w z
+u偶yciem komponentu QScintilla2.
 
 %package -n QtDesigner-plugin-%{name}
 Summary:	QScintilla2 plugin for Qt Designer
-Summary(pl):	Wtyczka QScintilla2 dla Qt Designera
+Summary(pl.UTF-8):   Wtyczka QScintilla2 dla Qt Designera
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	QtDesigner
@@ -61,14 +61,14 @@ Requires:	QtDesigner
 QScintilla2 plugin for Qt Designer that allows QScintilla instances
 to be included in GUI designs just like any other Qt widget.
 
-%description -n QtDesigner-plugin-%{name} -l pl
-Wtyczka WScintilla2 dla Qt Designera pozwalaj眂a na w潮czanie
-instancji QScintilli w projekty GUI w ten sam spos骲, co inne widgety
+%description -n QtDesigner-plugin-%{name} -l pl.UTF-8
+Wtyczka WScintilla2 dla Qt Designera pozwalaj膮ca na w艂膮czanie
+instancji QScintilli w projekty GUI w ten sam spos贸b, co inne widgety
 Qt.
 
 %package -n python-%{name}
 Summary:	Python bindings for the QScintilla2
-Summary(pl):	Wi眤ania Pythona dla komponentu QScintilla2
+Summary(pl.UTF-8):   Wi膮zania Pythona dla komponentu QScintilla2
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-PyQt4 >= 4.1.1
@@ -76,12 +76,12 @@ Requires:	python-PyQt4 >= 4.1.1
 %description -n python-%{name}
 Python bindings for the QScintilla2.
 
-%description -n python-%{name} -l pl
-Wi眤ania Pythona dla komponentu QScintilla2.
+%description -n python-%{name} -l pl.UTF-8
+Wi膮zania Pythona dla komponentu QScintilla2.
 
 %package -n python-%{name}-devel
 Summary:	Python bindings for the QScintilla2 - development files
-Summary(pl):	Wi眤ania Pythona dla komponentu QScintilla2 - pliki programistyczne
+Summary(pl.UTF-8):   Wi膮zania Pythona dla komponentu QScintilla2 - pliki programistyczne
 Group:		Development/Languages/Python
 Requires:	python-%{name} = %{version}-%{release}
 Requires:	python-PyQt4-devel >= 4.1.1
@@ -89,8 +89,8 @@ Requires:	python-PyQt4-devel >= 4.1.1
 %description -n python-%{name}-devel
 Python bindings for the QScintilla2 - development files.
 
-%description -n python-%{name}-devel -l pl
-Wi眤ania Pythona dla komponentu QScintilla2 - pliki programistyczne.
+%description -n python-%{name}-devel -l pl.UTF-8
+Wi膮zania Pythona dla komponentu QScintilla2 - pliki programistyczne.
 
 %prep
 %setup -q -n QScintilla-%{scintilla_ver}-gpl-%{version}-snapshot-%{_snap}
