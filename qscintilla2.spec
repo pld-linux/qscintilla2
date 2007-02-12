@@ -5,7 +5,7 @@
 %define		scintilla_ver	1.71
 %define		_snap		20061220
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
-Summary(pl.UTF-8):   QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
+Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2
 Release:	0.1
@@ -37,7 +37,7 @@ Ta wersja QScintilli jest oparta na Scintilli %{scintilla_ver}.
 
 %package devel
 Summary:	Development files for the QScintilla2
-Summary(pl.UTF-8):   Pliki nagłówkowe dla komponentu QScintilla2
+Summary(pl.UTF-8):	Pliki nagłówkowe dla komponentu QScintilla2
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	QtGui-devel
@@ -52,7 +52,7 @@ użyciem komponentu QScintilla2.
 
 %package -n QtDesigner-plugin-%{name}
 Summary:	QScintilla2 plugin for Qt Designer
-Summary(pl.UTF-8):   Wtyczka QScintilla2 dla Qt Designera
+Summary(pl.UTF-8):	Wtyczka QScintilla2 dla Qt Designera
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	QtDesigner
@@ -68,7 +68,7 @@ Qt.
 
 %package -n python-%{name}
 Summary:	Python bindings for the QScintilla2
-Summary(pl.UTF-8):   Wiązania Pythona dla komponentu QScintilla2
+Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-PyQt4 >= 4.1.1
@@ -81,7 +81,7 @@ Wiązania Pythona dla komponentu QScintilla2.
 
 %package -n python-%{name}-devel
 Summary:	Python bindings for the QScintilla2 - development files
-Summary(pl.UTF-8):   Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne
+Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne
 Group:		Development/Languages/Python
 Requires:	python-%{name} = %{version}-%{release}
 Requires:	python-PyQt4-devel >= 4.1.1
