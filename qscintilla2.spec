@@ -2,22 +2,23 @@
 # TODO:
 #	- QScintilla for Qt3
 #
-%define		scintilla_ver	1.72
-%define		_snap		20070117
+%define		main_ver	2.1
+%define		scintilla_ver	1.73
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2
-Release:	0.%{_snap}.1
+Version:	%{main_ver}_%{scintilla_ver}
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://www.riverbankcomputing.com/Downloads/Snapshots/QScintilla2/QScintilla-%{scintilla_ver}-gpl-%{version}-snapshot-%{_snap}.tar.gz
-# Source0-md5:	85ad7ff3372a6a86ecf41b694f7de2fa
+Source0:	http://www.riverbankcomputing.com/Downloads/QScintilla2/QScintilla-%{scintilla_ver}-gpl-%{main_ver}.tar.gz
+# Source0-md5:	13049717628391ca4db43f7ede0eeeb4
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/qscintilla/index.php
 BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
+BuildRequires:	QtScript-devel
 BuildRequires:	QtXml-devel
 BuildRequires:	python-PyQt4-devel >= 4.1.1
 BuildRequires:	qt4-build
@@ -93,7 +94,7 @@ Python bindings for the QScintilla2 - development files.
 Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne.
 
 %prep
-%setup -q -n QScintilla-%{scintilla_ver}-gpl-%{version}-snapshot-%{_snap}
+%setup -q -n QScintilla-%{scintilla_ver}-gpl-%{main_ver}
 %patch0 -p1
 %patch1 -p1
 
@@ -144,10 +145,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libqscintilla2.so.*.*.*
+%lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
 %lang(de) %{_datadir}/locale/de/LC_MESSAGES/qscintilla2.qm
 %lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/qscintilla2.qm
 %lang(pt_BR) %{_datadir}/locale/pt_BR/LC_MESSAGES/qscintilla2.qm
 %lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/qscintilla2.qm
+%{_datadir}/qt4/qsci
 
 %files devel
 %defattr(644,root,root,755)
