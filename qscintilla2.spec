@@ -21,8 +21,8 @@ BuildRequires:	QtGui-devel
 BuildRequires:	QtScript-devel
 BuildRequires:	QtXml-devel
 BuildRequires:	python-PyQt4-devel >= 4.1.1
-BuildRequires:	qt4-build
-BuildRequires:	qt4-qmake
+BuildRequires:	qt4-build >= 4.3.3-3
+BuildRequires:	qt4-qmake >= 4.3.3-3
 BuildRequires:	rpm-pythonprov
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -100,12 +100,12 @@ Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne.
 
 %build
 cd Qt4
-qt4-qmake qscintilla.pro
+qmake-qt4 qscintilla.pro
 %{__make}
 cd -
 
 cd designer-Qt4
-qt4-qmake designer.pro
+qmake-qt4 designer.pro
 %{__make}
 cd -
 
