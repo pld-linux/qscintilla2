@@ -2,16 +2,15 @@
 # TODO:
 #	- QScintilla for Qt3
 #
-%define		snap	20080703
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.2.1
-Release:	0.%{snap}.1
+Version:	2.2	
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
-Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}-snapshot-%{snap}.tar.gz
-# Source0-md5:	f527edaa4bf1447a29715794ab3e50fe
+Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
+# Source0-md5:	a6056c444494f3f849020d241f86c286
 Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
@@ -92,7 +91,7 @@ Python bindings for the QScintilla2 - development files.
 Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne.
 
 %prep
-%setup -q -n QScintilla-gpl-%{version}-snapshot-%{snap}
+%setup -q -n QScintilla-gpl-%{version}
 %patch0 -p1
 
 %build
