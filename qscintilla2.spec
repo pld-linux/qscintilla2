@@ -1,12 +1,13 @@
 #
 # TODO:
-#	- QScintilla for Qt3
+#	- QScintilla2 for Qt3
 #
+%define		scintilla_ver	1.75
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.2	
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
@@ -15,8 +16,6 @@ Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
-BuildRequires:	QtScript-devel
-BuildRequires:	QtXml-devel
 BuildRequires:	python-PyQt4-devel >= 4.1.1
 BuildRequires:	qt4-build >= 4.3.3-3
 BuildRequires:	qt4-qmake >= 4.3.3-3
@@ -146,7 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/qscintilla2.qm
 %lang(pt_BR) %{_datadir}/locale/pt_BR/LC_MESSAGES/qscintilla2.qm
 %lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/qscintilla2.qm
-%{_datadir}/qt4/qsci
+%dir %{_datadir}/qt4/qsci
+%dir %{_datadir}/qt4/qsci/api
 
 %files devel
 %defattr(644,root,root,755)
@@ -160,6 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/PyQt4/*.so*
+%{_datadir}/qt4/qsci/api/python
 
 %files -n python-%{name}-devel
 %defattr(644,root,root,755)
