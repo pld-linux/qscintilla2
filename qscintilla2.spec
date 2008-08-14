@@ -16,7 +16,6 @@ Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
-BuildRequires:	QtScript-devel
 BuildRequires:	python-PyQt4-devel >= 4.1.1
 BuildRequires:	qt4-build >= 4.3.3-3
 BuildRequires:	qt4-qmake >= 4.3.3-3
