@@ -2,16 +2,16 @@
 # TODO:
 #	- QScintilla2 for Qt3
 #
-%define		scintilla_ver	1.75
+%define		scintilla_ver	1.76
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.2	
-Release:	2
+Version:	2.3
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	a6056c444494f3f849020d241f86c286
+# Source0-md5:	473d7793592fe96406310a2ab34e9e9b
 Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
