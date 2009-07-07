@@ -2,16 +2,16 @@
 # TODO:
 #	- QScintilla2 for Qt3
 #
-%define		scintilla_ver	1.77
+%define		scintilla_ver	1.78
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.3.2
-Release:	2
+Version:	2.4
+Release:	1
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	2e112d01988f2e044c43a1e7f5e1dd87
+# Source0-md5:	dd69520ec91f1acb97a4eb74ddde37c9
 Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
@@ -68,7 +68,7 @@ Summary:	Python bindings for the QScintilla2
 Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-PyQt4 >= 4.1.1
+%requires_eq	python-PyQt4
 
 %description -n python-%{name}
 Python bindings for the QScintilla2.
@@ -140,8 +140,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libqscintilla2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2.so.5
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
 %lang(de) %{_datadir}/locale/de/LC_MESSAGES/qscintilla2.qm
+%lang(es) %{_datadir}/locale/es/LC_MESSAGES/qscintilla2.qm
 %lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/qscintilla2.qm
 %lang(pt_BR) %{_datadir}/locale/pt_BR/LC_MESSAGES/qscintilla2.qm
 %lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/qscintilla2.qm
