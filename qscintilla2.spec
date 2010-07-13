@@ -7,7 +7,7 @@ Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.4.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
@@ -16,7 +16,7 @@ Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
-BuildRequires:	python-PyQt4-devel >= 4.7.3
+BuildRequires:	python-PyQt4-devel >= 4.7.4
 BuildRequires:	qt4-build >= 4.3.3-3
 BuildRequires:	qt4-qmake >= 4.3.3-3
 BuildRequires:	rpm-pythonprov
@@ -68,7 +68,8 @@ Summary:	Python bindings for the QScintilla2
 Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2
 Group:		Libraries/Python
 Requires:	%{name} = %{version}-%{release}
-%requires_eq	python-PyQt4
+%requires_ge  python-PyQt4
+# Requires:   python-PyQt4 >= 0:4.7.4
 
 %description -n python-%{name}
 Python bindings for the QScintilla2.
