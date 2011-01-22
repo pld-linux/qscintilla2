@@ -21,6 +21,7 @@ BuildRequires:  python-sip-devel >= 2:4.11.1
 BuildRequires:	qt4-build >= 4.3.3-3
 BuildRequires:	qt4-qmake >= 4.3.3-3
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.558
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sipfilesdir	%{_datadir}/sip
