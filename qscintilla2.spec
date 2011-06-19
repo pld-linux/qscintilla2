@@ -8,7 +8,7 @@ Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla bibliotek
 Name:		qscintilla2
 Version:	2.4.6
 Release:	3
-License:	GPL v2
+License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
 # Source0-md5:	424a89736b900e6ca5bc6d929cdafaf8
@@ -141,7 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NEWS README
+%doc GPL_EXCEPTION.TXT NEWS OPENSOURCE-NOTICE.TXT README
 %attr(755,root,root) %{_libdir}/libqscintilla2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqscintilla2.so.5
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
@@ -160,12 +160,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/qt4/Qsci
 
 %files -n QtDesigner-plugin-%{name}
-%attr(755,root,root) %{_libdir}/qt4/plugins/designer/*.so
+%attr(755,root,root) %{_libdir}/qt4/plugins/designer/libqscintillaplugin.so
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/PyQt4/*.so*
-%{_datadir}/qt4/qsci/api/python
+%attr(755,root,root) %{py_sitedir}/PyQt4/Qsci.so
+%dir %{_datadir}/qt4/qsci/api/python
+%{_datadir}/qt4/qsci/api/python/Python-*.api
+%{_datadir}/qt4/qsci/api/python/QScintilla2.api
 
 %files -n python-%{name}-devel
 %defattr(644,root,root,755)
