@@ -1,16 +1,16 @@
 #
 # TODO: QScintilla2 for Qt3 (does it make any sense nowadays?)
 #
-%define		scintilla_ver	2.25
+%define		scintilla_ver	2.29
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.6
-Release:	2
+Version:	2.6.1
+Release:	1
 License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	0605a8006ea752ec2d1d7fc4791d1c75
+# Source0-md5:	39a1d0567a20b416177eb1a8afe225a7
 Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
