@@ -5,12 +5,12 @@
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.6.1
+Version:	2.6.2
 Release:	1
 License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://www.riverbankcomputing.co.uk/static/Downloads/QScintilla2/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	39a1d0567a20b416177eb1a8afe225a7
+# Source0-md5:	6e6641b6f3863c01cc28c2d7bd2495f9
 Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
@@ -95,7 +95,7 @@ Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne.
 %patch0 -p1
 
 %build
-cd Qt4
+cd Qt4Qt5
 qmake-qt4 qscintilla.pro
 %{__make}
 cd -
@@ -108,15 +108,15 @@ cd -
 cd Python
 %{__python} configure.py \
 	-c -j 3 \
-	-n ../Qt4 \
-	-o ../Qt4
+	-n ../Qt4Qt5 \
+	-o ../Qt4Qt5
 %{__make}
 cd -
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C Qt4 install \
+%{__make} -C Qt4Qt5 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 %{__make} -C designer-Qt4 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT

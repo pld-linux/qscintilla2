@@ -4,8 +4,8 @@
  
  TEMPLATE = lib
  TARGET = qscintillaplugin
-+INCLUDEPATH = ../Qt4
-+LIBPATH = ../Qt4
++INCLUDEPATH = ../Qt4Qt5
++LIBPATH = ../Qt4Qt5
  
  CONFIG += designer release plugin
  
