@@ -6,7 +6,7 @@ Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.6.2
-Release:	1
+Release:	2
 License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://downloads.sourceforge.net/pyqt/QScintilla-gpl-%{version}.tar.gz
@@ -16,7 +16,7 @@ URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
 BuildRequires:	python-PyQt4-devel >= 4.8.2
-BuildRequires:  python-sip-devel >= 2:4.12
+BuildRequires:  python-sip-devel >= 2:4.14
 BuildRequires:	qt4-build >= 4.7
 BuildRequires:	qt4-qmake >= 4.7
 BuildRequires:	rpm-pythonprov
