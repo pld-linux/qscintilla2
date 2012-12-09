@@ -1,12 +1,12 @@
 #
 # TODO: QScintilla2 for Qt3 (does it make any sense nowadays?)
 #
-%define		scintilla_ver	2.29
+%define		scintilla_ver	3.2.3
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.6.2
-Release:	2
+Version:	2.7
+Release:	1
 License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://downloads.sourceforge.net/pyqt/QScintilla-gpl-%{version}.tar.gz
@@ -17,8 +17,8 @@ BuildRequires:	QtDesigner-devel
 BuildRequires:	QtGui-devel
 BuildRequires:	python-PyQt4-devel >= 4.8.2
 BuildRequires:  python-sip-devel >= 2:4.14
-BuildRequires:	qt4-build >= 4.7
-BuildRequires:	qt4-qmake >= 4.7
+BuildRequires:	qt4-build >= 4.8
+BuildRequires:	qt4-qmake >= 4.8
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.558
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -141,7 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc GPL_EXCEPTION.TXT NEWS OPENSOURCE-NOTICE.TXT README
 %attr(755,root,root) %{_libdir}/libqscintilla2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2.so.8
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2.so.9
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
 %lang(de) %{_datadir}/locale/de/LC_MESSAGES/qscintilla2.qm
 %lang(es) %{_datadir}/locale/es/LC_MESSAGES/qscintilla2.qm
