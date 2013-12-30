@@ -1,16 +1,18 @@
 #
-# TODO: QScintilla2 for Qt3 (does it make any sense nowadays?)
+# TODO:
+# - QScintilla2 for Qt3 (does it make any sense nowadays?)
+# - QScintilla2 for Qt5
 #
 %define		scintilla_ver	3.2.3
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.7
+Version:	2.8
 Release:	1
 License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://downloads.sourceforge.net/pyqt/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	a3857d75a2b332e0460131e0aa4cc4b5
+# Source0-md5:	02c406d8cd5db661f127303e91775c0b
 Patch0:		%{name}-internal_build.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 BuildRequires:	QtDesigner-devel
@@ -100,16 +102,20 @@ qmake-qt4 qscintilla.pro
 %{__make}
 cd -
 
-cd designer-Qt4
+cd designer-Qt4Qt5
 qmake-qt4 designer.pro
 %{__make}
 cd -
 
 cd Python
+# setup PATH to get proper qmake
+# pass --apidir because configure.py default is inconsistent with sources (no /qsci subdir)
+PATH=%{_libdir}/qt4/bin:$PATH \
 %{__python} configure.py \
 	-c -j 3 \
 	-n ../Qt4Qt5 \
-	-o ../Qt4Qt5
+	-o ../Qt4Qt5 \
+	--apidir=%{_datadir}/qt4/qsci
 %{__make}
 cd -
 
@@ -118,10 +124,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} -C Qt4Qt5 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
-%{__make} -C designer-Qt4 install \
+%{__make} -C designer-Qt4Qt5 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 %{__make} -C Python install \
-	DESTDIR=$RPM_BUILD_ROOT
+	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 for file in $RPM_BUILD_ROOT%{_datadir}/locale/*.qm
 do
@@ -130,6 +136,9 @@ do
 	install -d $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES
 	mv -f $file $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES/qscintilla2.qm
 done
+
+# unnecessary symlink
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2.so.11.0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -141,7 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc GPL_EXCEPTION.TXT NEWS OPENSOURCE-NOTICE.TXT README
 %attr(755,root,root) %{_libdir}/libqscintilla2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2.so.9
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2.so.11
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
 %lang(de) %{_datadir}/locale/de/LC_MESSAGES/qscintilla2.qm
 %lang(es) %{_datadir}/locale/es/LC_MESSAGES/qscintilla2.qm
