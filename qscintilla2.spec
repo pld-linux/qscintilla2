@@ -1,5 +1,6 @@
 #
 # TODO:
+# - fix building with qscintilla2(-devel) installed, remove BC
 # - QScintilla2 for Qt3 (does it make any sense nowadays?)
 # - QScintilla2 for Qt5
 #
@@ -23,6 +24,7 @@ BuildRequires:	qt4-build >= 4.8
 BuildRequires:	qt4-qmake >= 4.8
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.558
+BuildConflicts:	qscintilla2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sipfilesdir	%{_datadir}/sip
