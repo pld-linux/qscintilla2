@@ -9,7 +9,7 @@ Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.8
-Release:	1
+Release:	2
 License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
 Group:		X11/Libraries
 Source0:	http://downloads.sourceforge.net/pyqt/QScintilla-gpl-%{version}.tar.gz
@@ -123,6 +123,7 @@ cd -
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_datadir}/qt5/qsci/api
 
 %{__make} -C Qt4Qt5 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
@@ -161,6 +162,8 @@ rm -rf $RPM_BUILD_ROOT
 %lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/qscintilla2.qm
 %dir %{_datadir}/qt4/qsci
 %dir %{_datadir}/qt4/qsci/api
+%dir %{_datadir}/qt5/qsci
+%dir %{_datadir}/qt5/qsci/api
 
 %files devel
 %defattr(644,root,root,755)
