@@ -9,3 +9,14 @@
  
  CONFIG += designer release plugin
  
+--- QScintilla-gpl-2.8.4/Python/configure.py.orig	2014-09-11 19:15:17.000000000 +0200
++++ QScintilla-gpl-2.8.4/Python/configure.py	2014-11-02 14:41:09.187039766 +0100
+@@ -1418,7 +1418,7 @@
+ 
+     includepath = qmake_config.get('INCLUDEPATH')
+     if includepath:
+-        pro.write('INCLUDEPATH += %s\n' % includepath)
++        pro.write('INCLUDEPATH = %s $$INCLUDEPATH\n' % includepath)
+ 
+     # Make sure the SIP include directory is searched before the Python include
+     # directory if they are different.
