@@ -93,7 +93,6 @@ Dokumentacja API biblioteki QScintilla2.
 Summary:	QScintilla2 - a port to Qt 4 of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt 4
 Group:		X11/Libraries
-Requires:	%{name}-common = %{version}-%{release}
 %ifarch %{x8664} ppc64 s390x sparc64
 Provides:	libqscintilla2.so.11()(64bit)
 %else
@@ -194,7 +193,6 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt4).
 Summary:	QScintilla2 - a port to Qt 5 of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt 5
 Group:		X11/Libraries
-Requires:	%{name}-common = %{version}-%{release}
 
 %description qt5
 QScintilla2 is a port to Qt of the Scintilla editing component.
