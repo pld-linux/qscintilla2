@@ -1,5 +1,5 @@
---- ../BUILD/QScintilla-gpl-2.8.4/Python/configure.py.orig	2014-11-04 16:22:47.229532126 +0100
-+++ ../BUILD/QScintilla-gpl-2.8.4/Python/configure.py	2014-11-07 22:03:55.811128882 +0100
+--- QScintilla-gpl-2.8.4/Python/configure.py.orig	2014-11-04 16:22:47.229532126 +0100
++++ QScintilla-gpl-2.8.4/Python/configure.py	2014-11-07 22:03:55.811128882 +0100
 @@ -278,7 +278,7 @@
              return None
  

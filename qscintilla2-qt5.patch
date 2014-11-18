@@ -1,0 +1,11 @@
+--- QScintilla-gpl-2.8.4/Python/configure.py.orig	2014-11-12 22:27:21.379600943 +0100
++++ QScintilla-gpl-2.8.4/Python/configure.py	2014-11-13 18:23:22.469922749 +0100
+@@ -289,7 +289,7 @@
+         version of Qt.  target_configuration is the target configuration.
+         """
+ 
+-        qmake = {'CONFIG': 'qscintilla2'}
++        qmake = {'CONFIG': 'qscintilla2', 'Qt5:QT': 'widgets printsupport'}
+ 
+         if target_configuration.qsci_inc_dir is not None:
+             qmake['INCLUDEPATH'] = quote(target_configuration.qsci_inc_dir)
