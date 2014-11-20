@@ -1,0 +1,11 @@
+--- QScintilla-gpl-2.8.4/Qt4Qt5/qscintilla.pro.orig	2014-11-20 20:54:22.727494808 +0100
++++ QScintilla-gpl-2.8.4/Qt4Qt5/qscintilla.pro	2014-11-20 21:01:46.424142856 +0100
+@@ -82,7 +82,7 @@
+ INSTALLS += header trans qsci target
+ 
+ greaterThan(QT_MAJOR_VERSION, 3) {
+-    features.path = $$[QT_INSTALL_DATA]/mkspecs/features
++    features.path = $$[QMAKE_MKSPECS]/features
+     features.files = $$PWD/features/qscintilla2.prf
+     INSTALLS += features
+ }

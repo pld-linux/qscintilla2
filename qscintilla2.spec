@@ -28,6 +28,7 @@ Patch1:		%{name}-multiqt.patch
 Patch2:		%{name}-make.patch
 Patch3:		%{name}-outoftree.patch
 Patch4:		%{name}-qt5.patch
+Patch5:		%{name}-mkspecs-dir.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 %if %{with python2}
 BuildRequires:	python-sip-devel >= 2:%{sip_ver}
@@ -65,7 +66,9 @@ BuildRequires:	python-PyQt5 >= %{pyqt5_ver}
 BuildRequires:	python3-PyQt5 >= %{pyqt5_ver}
 %endif
 %endif
-BuildConflicts:	qscintilla2-devel
+BuildConflicts:	qscintilla2-devel < %{version}
+%{?with_qt4:BuildConflicts:	qscintilla2-qt4-devel < %{version}}
+%{?with_qt5:BuildConflicts:	qscintilla2-qt5-devel < %{version}}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sipfilesdir	%{_datadir}/sip
@@ -288,12 +291,14 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
 install -d build-${qt}/{Qt4Qt5,designer-Qt4Qt5,Python2,Python3}
 cd build-${qt}/Qt4Qt5
-qmake-${qt} ../../Qt4Qt5/qscintilla.pro
+qmake-${qt} ../../Qt4Qt5/qscintilla.pro \
+	$(test "$qt" = "qt4" || echo QMAKE_MKSPECS=%{_libdir}/$qt/mkspecs)
 %{__make}
 cd ../designer-Qt4Qt5
 qmake-${qt} ../../designer-Qt4Qt5/designer.pro
@@ -449,7 +454,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libqscintilla2-qt5.so
 %{_includedir}/qt5/Qsci
-%{_datadir}/qt5/mkspecs/features/qscintilla2.prf
+%{_libdir}/qt5/mkspecs/features/qscintilla2.prf
 
 %files -n Qt5Designer-plugin-%{name}
 %defattr(644,root,root,755)
