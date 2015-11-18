@@ -17,19 +17,18 @@
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.8.4
-Release:	7
-License:	GPL v2 or GPL v3 with Riverbank GPL Exception v1.1
+Version:	2.9.1
+Release:	1
+License:	GPL v3
 Group:		X11/Libraries
 Source0:	http://downloads.sourceforge.net/pyqt/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	28aec903ff48ae541295a4fb9c96f8ea
+# Source0-md5:	38e6248cb970adf6d05aea7d94f1288e
 Patch0:		%{name}-internal_build.patch
 Patch1:		%{name}-multiqt.patch
 Patch2:		%{name}-make.patch
 Patch3:		%{name}-outoftree.patch
 Patch4:		%{name}-qt5.patch
-Patch5:		%{name}-mkspecs-dir.patch
-Patch6:		%{name}-link.patch
+Patch5:		%{name}-link.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 %if %{with python2}
 BuildRequires:	python-sip-devel >= 2:%{sip_ver}
@@ -296,7 +295,6 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
 for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
@@ -360,7 +358,7 @@ for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
 done
 
 # unnecessary symlink
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.11.3
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.12.0
 
 %if %{with qt4}
 # move Qt4 translations to PLD-specific directory scheme
@@ -369,7 +367,7 @@ do
 	lang=`echo $file | sed -r 's:.*/[a-zA-Z]*_(.*).qm:\1:'`
 	[ "$lang" == "pt_br" ] && lang=pt_BR
 	install -d $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES
-	mv -f $file $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES/qscintilla2.qm
+	%{__mv} $file $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES/qscintilla2.qm
 done
 
 # compatibility symlinks
@@ -393,9 +391,9 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with qt4}
 %files qt4
 %defattr(644,root,root,755)
-%doc GPL_EXCEPTION.TXT NEWS OPENSOURCE-NOTICE.TXT README
+%doc NEWS README
 %attr(755,root,root) %{_libdir}/libqscintilla2-qt4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2-qt4.so.11
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2-qt4.so.12
 # compatibility symlink
 %attr(755,root,root) %{_libdir}/libqscintilla2.so.11
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
@@ -441,9 +439,9 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with qt5}
 %files qt5
 %defattr(644,root,root,755)
-%doc GPL_EXCEPTION.TXT NEWS OPENSOURCE-NOTICE.TXT README
+%doc NEWS README
 %attr(755,root,root) %{_libdir}/libqscintilla2-qt5.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2-qt5.so.11
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2-qt5.so.12
 %lang(cs) %{_datadir}/qt5/translations/qscintilla_cs.qm
 %lang(de) %{_datadir}/qt5/translations/qscintilla_de.qm
 %lang(es) %{_datadir}/qt5/translations/qscintilla_es.qm

@@ -1,5 +1,14 @@
 --- QScintilla-gpl-2.8.4/Qt4Qt5/qscintilla.pro.orig	2014-11-03 21:10:56.232432440 +0100
 +++ QScintilla-gpl-2.8.4/Qt4Qt5/qscintilla.pro	2014-11-03 21:24:33.329064817 +0100
+@@ -246,7 +246,7 @@
+ 	../lexers/LexBaan.cpp \
+ 	../lexers/LexBash.cpp \
+ 	../lexers/LexBasic.cpp \
+-	../lexers/LexBibTex.cpp \
++	../lexers/LexBibTeX.cpp \
+ 	../lexers/LexBullant.cpp \
+ 	../lexers/LexCaml.cpp \
+ 	../lexers/LexCLW.cpp \
 @@ -285,7 +285,7 @@
  	../lexers/LexInno.cpp \
  	../lexers/LexKix.cpp \
