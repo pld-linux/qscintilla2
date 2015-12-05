@@ -1,0 +1,11 @@
+--- QScintilla-gpl-2.9.1/Python/configure.py~	2015-12-05 19:19:23.000000000 +0100
++++ QScintilla-gpl-2.9.1/Python/configure.py	2015-12-05 19:53:29.639660268 +0100
+@@ -619,7 +619,7 @@
+ 
+         self.inc_dir = sysconfig.get_python_inc()
+         self.venv_inc_dir = sysconfig.get_python_inc(prefix=sys.prefix)
+-        self.module_dir = sysconfig.get_python_lib(plat_specific=1)
++        self.module_dir = sysconfig.get_python_lib(plat_specific=1,standard_lib=1)
+ 
+         if sys.platform == 'win32':
+             self.data_dir = sys.prefix

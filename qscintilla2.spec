@@ -29,6 +29,7 @@ Patch2:		%{name}-make.patch
 Patch3:		%{name}-outoftree.patch
 Patch4:		%{name}-qt5.patch
 Patch5:		%{name}-link.patch
+Patch6:		python-install.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 %if %{with python2}
 BuildRequires:	python-sip-devel >= 2:%{sip_ver}
@@ -55,6 +56,7 @@ BuildRequires:	python3-PyQt4 >= %{pyqt4_ver}
 BuildRequires:	Qt5Designer-devel >= 5
 BuildRequires:	Qt5Gui-devel >= 5
 BuildRequires:	Qt5PrintSupport-devel >= 5
+BuildRequires:	Qt5UiTools-devel >= 5
 BuildRequires:	Qt5Widgets-devel >= 5
 BuildRequires:	qt5-build >= 5
 BuildRequires:	qt5-qmake >= 5
@@ -295,6 +297,7 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
