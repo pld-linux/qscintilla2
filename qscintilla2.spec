@@ -11,18 +11,18 @@
 %bcond_without	qt5	# Qt5 library and modules
 
 %define		scintilla_ver	3.3.6
-%define		sip_ver		4.16
-%define		pyqt4_ver	4.8.2
+%define		sip_ver		4.19
+%define		pyqt4_ver	4.12
 %define		pyqt5_ver	5.0
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.9.1
-Release:	4
+Version:	2.9.4
+Release:	0.1
 License:	GPL v3
 Group:		X11/Libraries
-Source0:	http://downloads.sourceforge.net/pyqt/QScintilla-gpl-%{version}.tar.gz
-# Source0-md5:	38e6248cb970adf6d05aea7d94f1288e
+Source0:	https://sourceforge.net/projects/pyqt/files/QScintilla2/QScintilla-%{version}/QScintilla_gpl-%{version}.tar.gz
+# Source0-md5:	e60d61ca1ee1dca8df25fe15d8ca7112
 Patch0:		%{name}-internal_build.patch
 Patch1:		%{name}-multiqt.patch
 Patch2:		%{name}-make.patch
@@ -290,11 +290,11 @@ Python 3 bindings for the QScintilla2 (PyQt5 version).
 Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 
 %prep
-%setup -q -n QScintilla-gpl-%{version}
+%setup -q -n QScintilla_gpl-%{version}
 %patch0 -p1
-%patch1 -p1
+# %%patch1 -p1
 %patch2 -p1
-%patch3 -p1
+# %%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
