@@ -10,23 +10,23 @@
          return path, files
  
 @@ -1257,7 +1257,7 @@
-     argv.append('-c')
-     argv.append('.')
+     # any '-I' needed appears first.
+     pkg_root = os.path.dirname(os.path.abspath(__file__))
  
--    argv.append(module_config.get_sip_file(target_config))
-+    argv.append(os.path.join(target_config.src_dir, module_config.get_sip_file(target_config)))
+-    sip_file = module_config.get_sip_file(target_config)
++    sip_file = os.path.join(target_config.src_dir, module_config.get_sip_file(target_config))
  
-     check_file = 'sipAPI%s.h' % module_config.name
-     _remove_file(check_file)
+     head, tail = os.path.split(sip_file)
+     while head:
 @@ -1611,8 +1611,11 @@
-     line arguments.  module_config is the module configuration.
+     arguments.  pkg_config is the package configuration.
      """
  
 +    src_dir = os.path.dirname(os.path.abspath(__file__))
 +
      # Create the default target configuration.
-     target_config = _TargetConfiguration(module_config)
+     target_config = _TargetConfiguration(pkg_config)
 +    target_config.src_dir = src_dir
  
      # Parse the command line.
-     p = _create_optparser(target_config, module_config)
+     p = _create_optparser(target_config, pkg_config)

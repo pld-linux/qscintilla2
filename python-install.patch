@@ -6,6 +6,6 @@
          self.venv_inc_dir = sysconfig.get_python_inc(prefix=sys.prefix)
 -        self.module_dir = sysconfig.get_python_lib(plat_specific=1)
 +        self.module_dir = os.path.join(sysconfig.get_python_lib(plat_specific=1,standard_lib=1), 'site-packages')
+         self.debug = hasattr(sys, 'gettotalrefcount')
  
          if sys.platform == 'win32':
-             self.data_dir = sys.prefix
