@@ -15,7 +15,7 @@
      }
  }
  
-+QTSUF = -qt$QT_MAJOR_VERSION
++QTSUF = -qt$$QT_MAJOR_VERSION
 +
  INCLUDEPATH += $$[QT_INSTALL_HEADERS]
  
@@ -24,17 +24,17 @@
  CONFIG(debug, debug|release) {
      mac: {
 -        LIBS += -lqscintilla2_debug
-+        LIBS += -lqscintilla2$$[QTSUF]_debug
++        LIBS += -lqscintilla2$${QTSUF}_debug
      } else {
          win32: {
 -            LIBS += -lqscintilla2d
-+            LIBS += -lqscintilla2$$[QTSUF]d
++            LIBS += -lqscintilla2$${QTSUF}d
          } else {
 -            LIBS += -lqscintilla2
-+            LIBS += -lqscintilla2$$[QTSUF]
++            LIBS += -lqscintilla2$${QTSUF}
          }
      }
  } else {
 -    LIBS += -lqscintilla2
-+    LIBS += -lqscintilla2$$[QTSUF]
++    LIBS += -lqscintilla2$${QTSUF}
  }
