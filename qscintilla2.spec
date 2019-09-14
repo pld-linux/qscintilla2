@@ -7,7 +7,7 @@
 %bcond_without	python3	# CPython 3.x module
 %bcond_without	qt4	# Qt4 library and modules
 %bcond_without	qt5	# Qt5 library and modules
-%bcond_with	pyqt4	# PyQt4 modules
+%bcond_without	pyqt4	# PyQt4 modules
 %bcond_without	pyqt5	# PyQt5 modules
 
 %define		scintilla_ver	3.3.6
