@@ -3,8 +3,8 @@
 #   - how to successfully prepend -I../Qt4Qt5 before system qt include in qmake?
 #
 # Conditonal build:
-%bcond_without	python2	# CPython 2.x module
-%bcond_without	python3	# CPython 3.x module
+%bcond_with	python2	# CPython 2.x module
+%bcond_with	python3	# CPython 3.x module
 %bcond_without	qt4	# Qt4 library and modules
 %bcond_without	qt5	# Qt5 library and modules
 %bcond_without	pyqt4	# PyQt4 modules
@@ -18,7 +18,7 @@ Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.11.2
-Release:	0.1
+Release:	1
 License:	GPL v3
 Group:		X11/Libraries
 Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla_gpl-%{version}.tar.gz
@@ -427,7 +427,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 # unnecessary symlink
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.12.0
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.15.0
 
 %if %{with qt4}
 # move Qt4 translations to PLD-specific directory scheme
@@ -438,10 +438,6 @@ do
 	install -d $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES
 	%{__mv} $file $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES/qscintilla2.qm
 done
-
-# compatibility symlinks
-ln -sf $(basename $RPM_BUILD_ROOT%{_libdir}/libqscintilla2-qt4.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libqscintilla2.so.11
-ln -sf $(basename $RPM_BUILD_ROOT%{_libdir}/libqscintilla2-qt4.so.*.*.*) $RPM_BUILD_ROOT%{_libdir}/libqscintilla2.so
 %endif
 
 %clean
@@ -461,10 +457,8 @@ rm -rf $RPM_BUILD_ROOT
 %files qt4
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_libdir}/libqscintilla2-qt4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2-qt4.so.12
-# compatibility symlink
-%attr(755,root,root) %{_libdir}/libqscintilla2.so.11
+%attr(755,root,root) %{_libdir}/libqscintilla2_qt4.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2_qt4.so.15
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
 %lang(de) %{_datadir}/locale/de/LC_MESSAGES/qscintilla2.qm
 %lang(es) %{_datadir}/locale/es/LC_MESSAGES/qscintilla2.qm
@@ -474,13 +468,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/qt4/qsci/api
 %dir %{_datadir}/qt4/qsci/api/python
 %{_datadir}/qt4/qsci/api/python/Python-*.api
-%{_datadir}/qt4/qsci/api/python/QScintilla2.api
+#%{_datadir}/qt4/qsci/api/python/QScintilla2.api
 
 %files qt4-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqscintilla2-qt4.so
-# compatibility symlink
-%attr(755,root,root) %{_libdir}/libqscintilla2.so
+%attr(755,root,root) %{_libdir}/libqscintilla2_qt4.so
 %{_includedir}/qt4/Qsci
 %{_datadir}/qt4/mkspecs/features/qscintilla2.prf
 
@@ -488,9 +480,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/qt4/plugins/designer/libqscintillaplugin.so
 
+%if %{with python2} || %{with python3}
 %files -n sip-PyQt4-%{name}
 %defattr(644,root,root,755)
 %{_sipfilesdir}/PyQt4/Qsci
+%endif
 
 %if %{with python2}
 %files -n python-PyQt4-%{name}
@@ -509,8 +503,8 @@ rm -rf $RPM_BUILD_ROOT
 %files qt5
 %defattr(644,root,root,755)
 %doc NEWS README
-%attr(755,root,root) %{_libdir}/libqscintilla2-qt5.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2-qt5.so.12
+%attr(755,root,root) %{_libdir}/libqscintilla2_qt5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqscintilla2_qt5.so.15
 %lang(cs) %{_datadir}/qt5/translations/qscintilla_cs.qm
 %lang(de) %{_datadir}/qt5/translations/qscintilla_de.qm
 %lang(es) %{_datadir}/qt5/translations/qscintilla_es.qm
@@ -520,11 +514,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/qt5/qsci/api
 %dir %{_datadir}/qt5/qsci/api/python
 %{_datadir}/qt5/qsci/api/python/Python-*.api
-%{_datadir}/qt5/qsci/api/python/QScintilla2.api
+#%{_datadir}/qt5/qsci/api/python/QScintilla2.api
 
 %files qt5-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqscintilla2-qt5.so
+%attr(755,root,root) %{_libdir}/libqscintilla2_qt5.so
 %{_includedir}/qt5/Qsci
 %{_libdir}/qt5/mkspecs/features/qscintilla2.prf
 
@@ -532,9 +526,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/qt5/plugins/designer/libqscintillaplugin.so
 
+%if %{with python2} || %{with python3}
 %files -n sip-PyQt5-%{name}
 %defattr(644,root,root,755)
 %{_sipfilesdir}/PyQt5/Qsci
+%endif
 
 %if %{with python2}
 %files -n python-PyQt5-%{name}
