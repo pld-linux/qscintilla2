@@ -3,22 +3,20 @@
 #   - how to successfully prepend -I../Qt4Qt5 before system qt include in qmake?
 #
 # Conditonal build:
-%bcond_with	python2	# CPython 2.x module
-%bcond_with	python3	# CPython 3.x module
+%bcond_without	python2	# CPython 2.x module
+%bcond_without	python3	# CPython 3.x module
 %bcond_without	qt4	# Qt4 library and modules
 %bcond_without	qt5	# Qt5 library and modules
-%bcond_without	pyqt4	# PyQt4 modules
-%bcond_without	pyqt5	# PyQt5 modules
 
 %define		scintilla_ver	3.3.6
 %define		sip_ver		4.19
-%define		pyqt4_ver	4.12
+%define		pyqt4_ver	1:4.12.1
 %define		pyqt5_ver	5.7.1
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.11.2
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		X11/Libraries
 Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla_gpl-%{version}.tar.gz
@@ -26,7 +24,7 @@ Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{versio
 Patch0:		%{name}-internal_build.patch
 Patch3:		%{name}-outoftree.patch
 Patch4:		%{name}-qt5.patch
-Patch5:		%{name}-link.patch
+Patch5:		py-config.patch
 Patch6:		python-install.patch
 Patch7:		sip-check.patch
 Patch8:		missing-header.patch
@@ -301,130 +299,67 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %patch8 -p1
 
 %build
-%if %{with qt4}
-install -d build-qt4/{Qt4Qt5,designer-Qt4Qt5,Python2,Python3}
-cd build-qt4/Qt4Qt5
-qmake-qt4 ../../Qt4Qt5/qscintilla.pro
+for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
+install -d build-${qt}/{Qt4Qt5,designer-Qt4Qt5,Python2,Python3}
+cd build-${qt}/Qt4Qt5
+qmake-${qt} ../../Qt4Qt5/qscintilla.pro \
+	$(test "$qt" = "qt4" || echo QMAKE_MKSPECS=%{_libdir}/$qt/mkspecs)
 %{__make}
 cd ../designer-Qt4Qt5
-qmake-qt4 ../../designer-Qt4Qt5/designer.pro
+qmake-${qt} ../../designer-Qt4Qt5/designer.pro
 %{__make}
 cd ..
 
-%if %{with pyqt4}
 %if %{with python2}
 cd Python2
 # setup PATH to get proper qmake
 # pass --apidir because configure.py default is inconsistent with sources (no /qsci subdir)
-PATH=%{_libdir}/qt4/bin:$PATH \
+PATH=%{_libdir}/${qt}/bin:$PATH \
 %{__python} ../../Python/configure.py \
 	--verbose \
-	-c -j 3 \
+	--concatenate \
+	--concatenate-split 3 \
 	-n ../../Qt4Qt5 \
 	-o ../Qt4Qt5 \
-	--apidir=%{_datadir}/qt4/qsci \
-	--pyqt=PyQt4
+	--apidir=%{_datadir}/${qt}/qsci \
+	--pyqt=PyQt${qt#qt}
 %{__make}
 cd ..
 %endif
 %if %{with python3}
 cd Python3
-PATH=%{_libdir}/qt4/bin:$PATH \
+PATH=%{_libdir}/${qt}/bin:$PATH \
 %{__python3} ../../Python/configure.py \
 	--verbose \
-	-c -j 3 \
+	--concatenate \
+	--concatenate-split 3 \
 	-n ../../Qt4Qt5 \
 	-o ../Qt4Qt5 \
-	--apidir=%{_datadir}/qt4/qsci \
-	--pyqt=PyQt4
+	--apidir=%{_datadir}/${qt}/qsci \
+	--pyqt=PyQt${qt#qt}
 %{__make}
 cd ..
 %endif
-%endif
 cd ..
-%endif
-
-# Qt5
-%if %{with qt5}
-install -d build-qt5/{Qt4Qt5,designer-Qt4Qt5,Python2,Python3}
-cd build-qt5/Qt4Qt5
-qmake-qt5 ../../Qt4Qt5/qscintilla.pro \
-	QMAKE_MKSPECS=%{_libdir}/qt5/mkspecs
-%{__make}
-cd ../designer-Qt4Qt5
-qmake-qt5 ../../designer-Qt4Qt5/designer.pro
-%{__make}
-cd ..
-
-%if %{with pyqt5}
-%if %{with python2}
-cd Python2
-# setup PATH to get proper qmake
-# pass --apidir because configure.py default is inconsistent with sources (no /qsci subdir)
-PATH=%{_libdir}/qt5/bin:$PATH \
-%{__python} ../../Python/configure.py \
-	--verbose \
-	-c -j 3 \
-	-n ../../Qt4Qt5 \
-	-o ../Qt4Qt5 \
-	--apidir=%{_datadir}/qt5/qsci \
-	--pyqt=PyQt5
-%{__make}
-cd ..
-%endif
-%if %{with python3}
-cd Python3
-PATH=%{_libdir}/qt5/bin:$PATH \
-%{__python3} ../../Python/configure.py \
-	--verbose \
-	-c -j 3 \
-	-n ../../Qt4Qt5 \
-	-o ../Qt4Qt5 \
-	--apidir=%{_datadir}/qt5/qsci \
-	--pyqt=PyQt5
-%{__make}
-cd ..
-%endif
-%endif
-cd ..
-%endif
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%if %{with qt4}
-%{__make} -C build-qt4/Qt4Qt5 install \
+for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
+%{__make} -j1 -C build-${qt}/Qt4Qt5 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
-%{__make} -C build-qt4/designer-Qt4Qt5 install \
+%{__make} -j1 -C build-${qt}/designer-Qt4Qt5 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
-%if %{with pyqt4}
 %if %{with python3}
-%{__make} -C build-${qt4/Python3 install \
+%{__make} -j1 -C build-${qt}/Python3 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 %endif
 %if %{with python2}
-%{__make} -C build-${qt4/Python2 install \
+%{__make} -j1 -C build-${qt}/Python2 install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 %endif
-%endif
-%endif
-
-%if %{with qt5}
-%{__make} -C build-qt5/Qt4Qt5 install \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
-%{__make} -C build-qt5/designer-Qt4Qt5 install \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
-%if %{with pyqt5}
-%if %{with python3}
-%{__make} -C build-qt5/Python3 install \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
-%endif
-%if %{with python2}
-%{__make} -C build-qt5/Python2 install \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
-%endif
-%endif
-%endif
+done
 
 # unnecessary symlink
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.15.0
@@ -468,7 +403,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/qt4/qsci/api
 %dir %{_datadir}/qt4/qsci/api/python
 %{_datadir}/qt4/qsci/api/python/Python-*.api
-#%{_datadir}/qt4/qsci/api/python/QScintilla2.api
+%{_datadir}/qt4/qsci/api/python/QScintilla2.api
 
 %files qt4-devel
 %defattr(644,root,root,755)
@@ -490,12 +425,14 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-PyQt4-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/PyQt4/Qsci.so
+%{py_sitedir}/PyQt4/Qsci.pyi
 %endif
 
 %if %{with python3}
 %files -n python3-PyQt4-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py3_sitedir}/PyQt4/Qsci.so
+%{py3_sitedir}/PyQt4/Qsci.pyi
 %endif
 %endif
 
@@ -514,7 +451,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/qt5/qsci/api
 %dir %{_datadir}/qt5/qsci/api/python
 %{_datadir}/qt5/qsci/api/python/Python-*.api
-#%{_datadir}/qt5/qsci/api/python/QScintilla2.api
+%{_datadir}/qt5/qsci/api/python/QScintilla2.api
 
 %files qt5-devel
 %defattr(644,root,root,755)
@@ -536,11 +473,13 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-PyQt5-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/PyQt5/Qsci.so
+%{py_sitedir}/PyQt5/Qsci.pyi
 %endif
 
 %if %{with python3}
 %files -n python3-PyQt5-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py3_sitedir}/PyQt5/Qsci.so
+%{py3_sitedir}/PyQt5/Qsci.pyi
 %endif
 %endif

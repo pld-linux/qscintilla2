@@ -9,3 +9,15 @@
          self.debug = hasattr(sys, 'gettotalrefcount')
  
          if sys.platform == 'win32':
+@@ -1564,7 +1564,10 @@
+             fn = fn.replace(os.sep, '/')
+             fn = os.path.normpath(fn)
+ 
+-            pro.write(' \\\n    ../%s' % fn)
++            if os.path.isabs(fn):
++                pro.write(' \\\n    %s' % fn)
++            else:
++                pro.write(' \\\n    ../%s' % fn)
+ 
+         pro.write('''
+ INSTALLS += sip

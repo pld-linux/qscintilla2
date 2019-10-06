@@ -1,0 +1,18 @@
+
+target_config.src_dir and thus sip_file is an absolute path,
+this means the head from os.path.split() winn _never_be empty,
+it will always contain at least a '/'. This whole while loop
+does not make any sense to me since config seems to be interested
+in checking if sip_file is a full path or only a file name.
+
+--- QScintilla_gpl-2.11.2/Python/configure.py~	2019-10-06 09:53:25.000000000 +0200
++++ QScintilla_gpl-2.11.2/Python/configure.py	2019-10-06 09:53:37.516896207 +0200
+@@ -1354,8 +1354,6 @@
+     sip_file = os.path.join(target_config.src_dir, module_config.get_sip_file(target_config))
+ 
+     head, tail = os.path.split(sip_file)
+-    while head:
+-        head, tail = os.path.split(head)
+ 
+     if tail != sip_file:
+         argv.append('-I')
