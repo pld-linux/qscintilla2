@@ -86,9 +86,7 @@ Ta wersja QScintilli jest oparta na Scintilli %{scintilla_ver}.
 Summary:	QScintilla2 API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki QScintilla2
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 QScintilla2 API documentation.
