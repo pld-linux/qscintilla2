@@ -1,17 +1,7 @@
---- QScintilla-2.8-gpl/designer-Qt4Qt5/designer.pro.orig	2006-12-25 04:56:07.000000000 +0100
-+++ QScintilla-2.8-gpl/designer-Qt4Qt5/designer.pro	2006-12-26 02:54:57.792560260 +0100
-@@ -3,6 +3,8 @@
- 
- TEMPLATE = lib
- TARGET = qscintillaplugin
-+INCLUDEPATH = ../Qt4Qt5
-+LIBPATH = ../Qt4Qt5
- 
- CONFIG += designer release plugin
- 
---- QScintilla-gpl-2.8.4/Python/configure.py.orig	2014-09-11 19:15:17.000000000 +0200
-+++ QScintilla-gpl-2.8.4/Python/configure.py	2014-11-02 14:41:09.187039766 +0100
-@@ -1418,7 +1418,7 @@
+diff -urNp -x '*.orig' QScintilla_gpl-2.11.2.org/Python/configure.py QScintilla_gpl-2.11.2/Python/configure.py
+--- QScintilla_gpl-2.11.2.org/Python/configure.py	2019-06-25 14:49:28.000000000 +0200
++++ QScintilla_gpl-2.11.2/Python/configure.py	2021-03-05 20:11:27.050117920 +0100
+@@ -1602,7 +1602,7 @@ INSTALLS += sip
  
      includepath = qmake_config.get('INCLUDEPATH')
      if includepath:
@@ -20,3 +10,15 @@
  
      # Make sure the SIP include directory is searched before the Python include
      # directory if they are different.
+diff -urNp -x '*.orig' QScintilla_gpl-2.11.2.org/designer-Qt4Qt5/designer.pro QScintilla_gpl-2.11.2/designer-Qt4Qt5/designer.pro
+--- QScintilla_gpl-2.11.2.org/designer-Qt4Qt5/designer.pro	2019-06-25 14:49:28.000000000 +0200
++++ QScintilla_gpl-2.11.2/designer-Qt4Qt5/designer.pro	2021-03-05 20:11:27.050117920 +0100
+@@ -3,6 +3,8 @@
+ 
+ TEMPLATE = lib
+ TARGET = qscintillaplugin
++INCLUDEPATH = ../Qt4Qt5
++LIBPATH = ../Qt4Qt5
+ 
+ CONFIG += plugin qscintilla2
+ 

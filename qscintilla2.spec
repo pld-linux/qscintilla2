@@ -28,6 +28,7 @@ Patch5:		py-config.patch
 Patch6:		python-install.patch
 Patch7:		sip-check.patch
 Patch8:		missing-header.patch
+Patch9:		0011-Fixed-the-Python-signatures-of-the-QsciAPIs-ctors.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 %if %{with python2}
 BuildRequires:	python-sip-devel >= 2:%{sip_ver}
@@ -295,6 +296,7 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do

@@ -1,6 +1,7 @@
---- QScintilla-gpl-2.8.4/Python/configure.py.orig	2014-11-04 16:22:47.229532126 +0100
-+++ QScintilla-gpl-2.8.4/Python/configure.py	2014-11-07 22:03:55.811128882 +0100
-@@ -278,7 +278,7 @@
+diff -urNp -x '*.orig' QScintilla_gpl-2.11.2.org/Python/configure.py QScintilla_gpl-2.11.2/Python/configure.py
+--- QScintilla_gpl-2.11.2.org/Python/configure.py	2021-03-05 20:11:27.200117035 +0100
++++ QScintilla_gpl-2.11.2/Python/configure.py	2021-03-05 20:11:27.296783130 +0100
+@@ -294,7 +294,7 @@ class ModuleConfiguration(object):
              return None
  
          path = os.path.join(target_configuration.qsci_sip_dir, 'Qsci')
@@ -9,7 +10,7 @@
  
          return path, files
  
-@@ -1257,7 +1257,7 @@
+@@ -1351,7 +1351,7 @@ def _generate_code(target_config, opts,
      # any '-I' needed appears first.
      pkg_root = os.path.dirname(os.path.abspath(__file__))
  
@@ -18,7 +19,7 @@
  
      head, tail = os.path.split(sip_file)
      while head:
-@@ -1611,8 +1611,11 @@
+@@ -1823,8 +1823,11 @@ def _main(argv, pkg_config):
      arguments.  pkg_config is the package configuration.
      """
  
