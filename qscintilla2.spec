@@ -16,14 +16,13 @@ Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.11.6
-Release:	1
+Release:	2
 License:	GPL v3
 Group:		X11/Libraries
 Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla-%{version}.tar.gz
 # Source0-md5:	343cd0c2c8b425518df2e51eb994fbc6
 Patch0:		%{name}-internal_build.patch
 Patch3:		%{name}-outoftree.patch
-Patch4:		%{name}-qt5.patch
 Patch5:		py-config.patch
 Patch6:		python-install.patch
 Patch7:		sip-check.patch
@@ -290,7 +289,6 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %setup -q -n QScintilla-%{version}
 %patch0 -p1
 %patch3 -p1
-%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
@@ -334,7 +332,8 @@ PATH=%{_libdir}/${qt}/bin:$PATH \
 	-n ../../Qt4Qt5 \
 	-o ../Qt4Qt5 \
 	--apidir=%{_datadir}/${qt}/qsci \
-	--pyqt=PyQt${qt#qt}
+	--pyqt=PyQt${qt#qt} \
+	--qsci-featuresdir=../../Qt4Qt5/features
 %{__make}
 cd ..
 %endif
