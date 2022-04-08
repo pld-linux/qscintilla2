@@ -34,6 +34,7 @@ BuildRequires:	python-sip-devel >= 2:%{sip_ver}
 %if %{with python3}
 BuildRequires:	python3-sip-devel >= 2:%{sip_ver}
 %endif
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.558
 %if %{with qt4}
