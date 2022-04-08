@@ -15,12 +15,12 @@
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.11.2
-Release:	6
+Version:	2.11.6
+Release:	1
 License:	GPL v3
 Group:		X11/Libraries
-Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla_gpl-%{version}.tar.gz
-# Source0-md5:	2ec4833e790e44698c50ec703f274bab
+Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla-%{version}.tar.gz
+# Source0-md5:	343cd0c2c8b425518df2e51eb994fbc6
 Patch0:		%{name}-internal_build.patch
 Patch3:		%{name}-outoftree.patch
 Patch4:		%{name}-qt5.patch
@@ -28,7 +28,6 @@ Patch5:		py-config.patch
 Patch6:		python-install.patch
 Patch7:		sip-check.patch
 Patch8:		missing-header.patch
-Patch9:		0011-Fixed-the-Python-signatures-of-the-QsciAPIs-ctors.patch
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
 %if %{with python2}
 BuildRequires:	python-sip-devel >= 2:%{sip_ver}
@@ -288,7 +287,7 @@ Python 3 bindings for the QScintilla2 (PyQt5 version).
 Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 
 %prep
-%setup -q -n QScintilla_gpl-%{version}
+%setup -q -n QScintilla-%{version}
 %patch0 -p1
 %patch3 -p1
 %patch4 -p1
@@ -296,7 +295,6 @@ Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-%patch9 -p1
 
 %build
 for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
@@ -391,7 +389,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with qt4}
 %files qt4
 %defattr(644,root,root,755)
-%doc NEWS README
+%doc NEWS
 %attr(755,root,root) %{_libdir}/libqscintilla2_qt4.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqscintilla2_qt4.so.15
 %lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
@@ -439,7 +437,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with qt5}
 %files qt5
 %defattr(644,root,root,755)
-%doc NEWS README
+%doc NEWS
 %attr(755,root,root) %{_libdir}/libqscintilla2_qt5.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libqscintilla2_qt5.so.15
 %lang(cs) %{_datadir}/qt5/translations/qscintilla_cs.qm
