@@ -319,7 +319,8 @@ PATH=%{_libdir}/${qt}/bin:$PATH \
 	-n ../../Qt4Qt5 \
 	-o ../Qt4Qt5 \
 	--apidir=%{_datadir}/${qt}/qsci \
-	--pyqt=PyQt${qt#qt}
+	--pyqt=PyQt${qt#qt} \
+	--qsci-featuresdir=../../Qt4Qt5/features
 %{__make}
 cd ..
 %endif
