@@ -2,77 +2,37 @@
 # - fix building with qscintilla2(-devel) installed, remove BC
 #   - how to successfully prepend -I../Qt4Qt5 before system qt include in qmake?
 #
-# Conditonal build:
-%bcond_without	python2	# CPython 2.x module
-%bcond_without	python3	# CPython 3.x module
-%bcond_without	qt4	# Qt4 library and modules
-%bcond_without	qt5	# Qt5 library and modules
-
 %define		scintilla_ver	3.3.6
-%define		sip_ver		4.19
-%define		pyqt4_ver	1:4.12.1
-%define		pyqt5_ver	5.7.1
+%define		sip_ver		6.4
+%define		pyqt5_ver	5.15.7
 Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
-Version:	2.11.6
-Release:	2
+Version:	2.13.3
+Release:	0.1
 License:	GPL v3
 Group:		X11/Libraries
-Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla-%{version}.tar.gz
-# Source0-md5:	343cd0c2c8b425518df2e51eb994fbc6
-Patch0:		%{name}-internal_build.patch
-Patch3:		%{name}-outoftree.patch
-Patch5:		py-config.patch
-Patch6:		python-install.patch
-Patch7:		sip-check.patch
-Patch8:		missing-header.patch
+Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla_src-%{version}.tar.gz
+# Source0-md5:	af0dab4ff9908e0d41934aff6ce2348d
 URL:		http://www.riverbankcomputing.co.uk/software/qscintilla/
-%if %{with python2}
-BuildRequires:	python-sip-devel >= 2:%{sip_ver}
-%endif
-%if %{with python3}
-BuildRequires:	python3-sip-devel >= 2:%{sip_ver}
-%endif
-BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.558
-%if %{with qt4}
-BuildRequires:	QtDesigner-devel >= 4.8
-BuildRequires:	QtGui-devel >= 4.8
-BuildRequires:	QtNetwork-devel >= 4.8
-BuildRequires:	qt4-build >= 4.8
-BuildRequires:	qt4-qmake >= 4.8
-BuildRequires:	sip-PyQt4 >= %{pyqt4_ver}
-%if %{with python2}
-BuildRequires:	python-PyQt4 >= %{pyqt4_ver}
-%endif
-%if %{with python3}
-BuildRequires:	python3-PyQt4 >= %{pyqt4_ver}
-%endif
-%endif
-%if %{with qt5}
 BuildRequires:	Qt5Designer-devel >= 5
 BuildRequires:	Qt5Gui-devel >= 5
 BuildRequires:	Qt5PrintSupport-devel >= 5
+BuildRequires:	qt5-qmake >= 5
 BuildRequires:	Qt5UiTools-devel >= 5
 BuildRequires:	Qt5Widgets-devel >= 5
-BuildRequires:	qt5-build >= 5
-BuildRequires:	qt5-qmake >= 5
-BuildRequires:	sip-PyQt5 >= %{pyqt5_ver}
-%if %{with python2}
-BuildRequires:	python-PyQt5 >= %{pyqt5_ver}
-%endif
-%if %{with python3}
 BuildRequires:	python3-PyQt5 >= %{pyqt5_ver}
-%endif
-%endif
+BuildRequires:	qt5-build >= 5
+BuildRequires:	rpm-build >= 4.6
+BuildRequires:	rpmbuild(macros) >= 1.558
+BuildRequires:	rpm-pythonprov
+BuildRequires:	sip6 >= %{sip_ver}
+BuildRequires:	sip-PyQt5 >= %{pyqt5_ver}
 BuildConflicts:	qscintilla2-devel < %{version}
-%{?with_qt4:BuildConflicts:	qscintilla2-qt4-devel < %{version}}
-%{?with_qt5:BuildConflicts:	qscintilla2-qt5-devel < %{version}}
+Obsoletes:	qscintilla2-qt4 < 2.13.3
+Obsoletes:	qscintilla2-qt4-devel < 2.13.3
+BuildConflicts:	qscintilla2-qt5-devel < %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_sipfilesdir	%{_datadir}/sip
 
 %description
 QScintilla2 is a port to Qt of the Scintilla editing component.
@@ -94,45 +54,6 @@ QScintilla2 API documentation.
 %description apidocs -l pl.UTF-8
 Dokumentacja API biblioteki QScintilla2.
 
-%package qt4
-Summary:	QScintilla2 - a port to Qt 4 of the Scintilla editing component
-Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt 4
-Group:		X11/Libraries
-%ifarch %{x8664} ppc64 s390x sparc64
-Provides:	libqscintilla2.so.11()(64bit)
-%else
-Provides:	libqscintilla2.so.11
-%endif
-Obsoletes:	qscintilla2 < 2.8.4
-
-%description qt4
-QScintilla2 is a port to Qt of the Scintilla editing component.
-This version of QScintilla is based on Scintilla v%{scintilla_ver}.
-
-This package contains the Qt 4 port.
-
-%description qt4 -l pl.UTF-8
-QScintilla2 to port komponentu edytora Scintilla dla biblioteki Qt.
-Ta wersja QScintilli jest oparta na Scintilli %{scintilla_ver}.
-
-Ten pakiet zawiera port Qt 4.
-
-%package qt4-devel
-Summary:	Development files for the QScintilla2 Qt 4 library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki QScintilla2 dla Qt 4
-Group:		X11/Development/Libraries
-Requires:	%{name}-qt4 = %{version}-%{release}
-Requires:	QtGui-devel >= 4
-Obsoletes:	qscintilla2-devel < 2.8.4
-
-%description qt4-devel
-This package contains the header files necessary to develop
-applications using QScintilla2 for Qt 4.
-
-%description qt4-devel -l pl.UTF-8
-Ten pakiet zawiera pliki nagłówkowe potrzebne do tworzenia programów z
-użyciem komponentu QScintilla2 dla Qt 4.
-
 %package -n QtDesigner-plugin-%{name}
 Summary:	QScintilla2 plugin for Qt Designer
 Summary(pl.UTF-8):	Wtyczka QScintilla2 dla Qt Designera
@@ -153,51 +74,11 @@ Qt.
 
 Ten pakiet zawiera wersję dla Qt 4.
 
-%package -n sip-PyQt4-%{name}
-Summary:	Python bindings for the QScintilla2 - SIP development files
-Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne SIP
-Group:		Development/Languages/Python
-Requires:	sip-PyQt4 >= %{pyqt4_ver}
-Obsoletes:	python-qscintilla2-devel < 2.8.4
-
-%description -n sip-PyQt4-%{name}
-Python bindings for the QScintilla2 - SIP development files.
-
-%description -n sip-PyQt4-%{name} -l pl.UTF-8
-Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne
-SIP.
-
-%package -n python-PyQt4-%{name}
-Summary:	Python 2 bindings for the QScintilla2 (PyQt4 version)
-Summary(pl.UTF-8):	Wiązania Pythona 2 dla komponentu QScintilla2 (wersja dla PyQt4)
-Group:		Libraries/Python
-Requires:	%{name}-qt4 = %{version}-%{release}
-%requires_ge	python-PyQt4
-Obsoletes:	python-qscintilla2 < 2.8.4
-
-%description -n python-PyQt4-%{name}
-Python 2 bindings for the QScintilla2 (PyQt4 version).
-
-%description -n python-PyQt4-%{name} -l pl.UTF-8
-Wiązania Pythona 2 dla komponentu QScintilla2 (wersja dla PyQt4).
-
-%package -n python3-PyQt4-%{name}
-Summary:	Python 3 bindings for the QScintilla2 (PyQt4 version)
-Summary(pl.UTF-8):	Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt4)
-Group:		Libraries/Python
-Requires:	%{name}-qt4 = %{version}-%{release}
-%requires_ge	python3-PyQt4
-
-%description -n python3-PyQt4-%{name}
-Python 3 bindings for the QScintilla2 (PyQt4 version).
-
-%description -n python3-PyQt4-%{name} -l pl.UTF-8
-Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt4).
-
 %package qt5
 Summary:	QScintilla2 - a port to Qt 5 of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt 5
 Group:		X11/Libraries
+Obsoletes:	qscintilla2-qt4 < 2.13.3
 
 %description qt5
 QScintilla2 is a port to Qt of the Scintilla editing component.
@@ -218,6 +99,7 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-qt5 = %{version}-%{release}
 Requires:	Qt5Gui-devel >= 5
 Obsoletes:	qscintilla2-devel < 2.8.4
+Obsoletes:	qscintilla2-qt4-devel < 2.13.3
 
 %description qt5-devel
 This package contains the header files necessary to develop
@@ -233,6 +115,7 @@ Summary(pl.UTF-8):	Wtyczka QScintilla2 dla Qt Designera
 Group:		X11/Development/Libraries
 Requires:	%{name}-qt5 = %{version}-%{release}
 Requires:	Qt5Designer >= 5
+Obsoletes:	QtDesigner-plugin-qscintilla2 < 2.13.3
 
 %description -n Qt5Designer-plugin-%{name}
 QScintilla2 plugin for Qt Designer that allows QScintilla instances
@@ -252,6 +135,7 @@ Summary:	Python bindings for the QScintilla2 - SIP development files
 Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne SIP
 Group:		Development/Languages/Python
 Requires:	sip-PyQt5 >= %{pyqt5_ver}
+Obsoletes:	sip-PyQt4-qscintilla2 < 2.13.3
 
 %description -n sip-PyQt5-%{name}
 Python bindings for the QScintilla2 - SIP development files.
@@ -260,25 +144,15 @@ Python bindings for the QScintilla2 - SIP development files.
 Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne
 SIP.
 
-%package -n python-PyQt5-%{name}
-Summary:	Python 2 bindings for the QScintilla2 (PyQt5 version)
-Summary(pl.UTF-8):	Wiązania Pythona 2 dla komponentu QScintilla2 (wersja dla PyQt5)
-Group:		Libraries/Python
-Requires:	%{name}-qt5 = %{version}-%{release}
-%requires_ge	python-PyQt5
-
-%description -n python-PyQt5-%{name}
-Python 2 bindings for the QScintilla2 (PyQt5 version).
-
-%description -n python-PyQt5-%{name} -l pl.UTF-8
-Wiązania Pythona 2 dla komponentu QScintilla2 (wersja dla PyQt5).
-
 %package -n python3-PyQt5-%{name}
 Summary:	Python 3 bindings for the QScintilla2 (PyQt5 version)
 Summary(pl.UTF-8):	Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5)
 Group:		Libraries/Python
 Requires:	%{name}-qt5 = %{version}-%{release}
 %requires_ge	python3-PyQt5
+Obsoletes:	python-PyQt4-qscintilla2 < 2.13.3
+Obsoletes:	python-PyQt5-qscintilla2 < 2.13.3
+Obsoletes:	python3-PyQt4-qscintilla2 < 2.13.3
 
 %description -n python3-PyQt5-%{name}
 Python 3 bindings for the QScintilla2 (PyQt5 version).
@@ -287,155 +161,58 @@ Python 3 bindings for the QScintilla2 (PyQt5 version).
 Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
 
 %prep
-%setup -q -n QScintilla-%{version}
-%patch0 -p1
-%patch3 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
+%setup -q -n QScintilla_src-%{version}
 
 %build
-for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
-install -d build-${qt}/{Qt4Qt5,designer-Qt4Qt5,Python2,Python3}
-cd build-${qt}/Qt4Qt5
-qmake-${qt} ../../Qt4Qt5/qscintilla.pro \
-	$(test "$qt" = "qt4" || echo QMAKE_MKSPECS=%{_libdir}/$qt/mkspecs)
-%{__make}
-cd ../designer-Qt4Qt5
-qmake-${qt} ../../designer-Qt4Qt5/designer.pro
-%{__make}
-cd ..
+export QMAKEFEATURES=$PWD/src/features;
 
-%if %{with python2}
-cd Python2
-# setup PATH to get proper qmake
-# pass --apidir because configure.py default is inconsistent with sources (no /qsci subdir)
-PATH=%{_libdir}/${qt}/bin:$PATH \
-%{__python} ../../Python/configure.py \
-	--verbose \
-	--concatenate \
-	--concatenate-split 3 \
-	-n ../../Qt4Qt5 \
-	-o ../Qt4Qt5 \
-	--apidir=%{_datadir}/${qt}/qsci \
-	--pyqt=PyQt${qt#qt} \
-	--qsci-featuresdir=../../Qt4Qt5/features
+install -d build-qt5/{Qt4Qt5,designer-Qt4Qt5,Python3}
+cd src
+qmake-qt5 qscintilla.pro QMAKE_MKSPECS=%{_libdir}/qt5/mkspecs
 %{__make}
-cd ..
-%endif
-%if %{with python3}
-cd Python3
-PATH=%{_libdir}/${qt}/bin:$PATH \
-%{__python3} ../../Python/configure.py \
-	--verbose \
-	--concatenate \
-	--concatenate-split 3 \
-	-n ../../Qt4Qt5 \
-	-o ../Qt4Qt5 \
-	--apidir=%{_datadir}/${qt}/qsci \
-	--pyqt=PyQt${qt#qt} \
-	--qsci-featuresdir=../../Qt4Qt5/features
+
+cd ../designer
+qmake-qt5 designer.pro INCLUDEPATH+=../src LIBS+=-L../src QMAKE_MKSPECS=%{_libdir}/qt5/mkspecs
 %{__make}
-cd ..
-%endif
-cd ..
-done
+
+cd ../Python
+#	--api-dir=%{_qt5_datadir}/qsci/api/python \
+ln -s pyproject-qt5.toml pyproject.toml
+LD_LIBRARY_PATH=$PWD/../src \
+sip-build \
+	--no-make \
+	--verbose \
+	--pep484-pyi \
+	--qmake="%{_bindir}/qmake-qt5" \
+	--api-dir=%{_datadir}/qt5/qsci \
+	--qsci-include-dir=../src \
+	--qsci-library-dir=../src \
+	--qsci-features-dir=../src/features
+%{__make} -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-for qt in %{?with_qt4:qt4} %{?with_qt5:qt5} ; do
-%{__make} -j1 -C build-${qt}/Qt4Qt5 install \
+%{__make} -j1 -C src install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
-%{__make} -j1 -C build-${qt}/designer-Qt4Qt5 install \
+%{__make} -j1 -C designer install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
-%if %{with python3}
-%{__make} -j1 -C build-${qt}/Python3 install \
+%{__make} -j1 -C Python/build install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
-%endif
-%if %{with python2}
-%{__make} -j1 -C build-${qt}/Python2 install \
-	INSTALL_ROOT=$RPM_BUILD_ROOT
-%endif
-done
 
 # unnecessary symlink
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.15.0
-
-%if %{with qt4}
-# move Qt4 translations to PLD-specific directory scheme
-for file in $RPM_BUILD_ROOT%{_datadir}/locale/*.qm
-do
-	lang=`echo $file | sed -r 's:.*/[a-zA-Z]*_(.*).qm:\1:'`
-	[ "$lang" == "pt_br" ] && lang=pt_BR
-	install -d $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES
-	%{__mv} $file $RPM_BUILD_ROOT%{_datadir}/locale/$lang/LC_MESSAGES/qscintilla2.qm
-done
-%endif
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libqscintilla2*.so.15.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	qt4 -p /sbin/ldconfig
-%postun	qt4 -p /sbin/ldconfig
 
 %post	qt5 -p /sbin/ldconfig
 %postun	qt5 -p /sbin/ldconfig
 
 %files apidocs
 %defattr(644,root,root,755)
-%doc doc/{Scintilla,html-Qt4Qt5}
+%doc doc/{Scintilla,html}
 
-%if %{with qt4}
-%files qt4
-%defattr(644,root,root,755)
-%doc NEWS
-%attr(755,root,root) %{_libdir}/libqscintilla2_qt4.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libqscintilla2_qt4.so.15
-%lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/qscintilla2.qm
-%lang(de) %{_datadir}/locale/de/LC_MESSAGES/qscintilla2.qm
-%lang(es) %{_datadir}/locale/es/LC_MESSAGES/qscintilla2.qm
-%lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/qscintilla2.qm
-%lang(pt_BR) %{_datadir}/locale/pt_BR/LC_MESSAGES/qscintilla2.qm
-%dir %{_datadir}/qt4/qsci
-%dir %{_datadir}/qt4/qsci/api
-%dir %{_datadir}/qt4/qsci/api/python
-%{_datadir}/qt4/qsci/api/python/Python-*.api
-%{_datadir}/qt4/qsci/api/python/QScintilla2.api
-
-%files qt4-devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libqscintilla2_qt4.so
-%{_includedir}/qt4/Qsci
-%{_datadir}/qt4/mkspecs/features/qscintilla2.prf
-
-%files -n QtDesigner-plugin-%{name}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/qt4/plugins/designer/libqscintillaplugin.so
-
-%if %{with python2} || %{with python3}
-%files -n sip-PyQt4-%{name}
-%defattr(644,root,root,755)
-%{_sipfilesdir}/PyQt4/Qsci
-%endif
-
-%if %{with python2}
-%files -n python-PyQt4-%{name}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/PyQt4/Qsci.so
-%{py_sitedir}/PyQt4/Qsci.pyi
-%endif
-
-%if %{with python3}
-%files -n python3-PyQt4-%{name}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py3_sitedir}/PyQt4/Qsci.so
-%{py3_sitedir}/PyQt4/Qsci.pyi
-%endif
-%endif
-
-%if %{with qt5}
 %files qt5
 %defattr(644,root,root,755)
 %doc NEWS
@@ -450,7 +227,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/qt5/qsci/api
 %dir %{_datadir}/qt5/qsci/api/python
 %{_datadir}/qt5/qsci/api/python/Python-*.api
-%{_datadir}/qt5/qsci/api/python/QScintilla2.api
+%{_datadir}/qt5/qsci/QScintilla.api
 
 %files qt5-devel
 %defattr(644,root,root,755)
@@ -462,23 +239,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/qt5/plugins/designer/libqscintillaplugin.so
 
-%if %{with python2} || %{with python3}
 %files -n sip-PyQt5-%{name}
 %defattr(644,root,root,755)
-%{_sipfilesdir}/PyQt5/Qsci
-%endif
+%{py3_sitedir}/PyQt5/bindings/Qsci
 
-%if %{with python2}
-%files -n python-PyQt5-%{name}
-%defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/PyQt5/Qsci.so
-%{py_sitedir}/PyQt5/Qsci.pyi
-%endif
-
-%if %{with python3}
 %files -n python3-PyQt5-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py3_sitedir}/PyQt5/Qsci.so
+%attr(755,root,root) %{py3_sitedir}/PyQt5/Qsci.abi3.so
+%{py3_sitedir}/QScintilla-%{version}.dist-info
 %{py3_sitedir}/PyQt5/Qsci.pyi
-%endif
-%endif
