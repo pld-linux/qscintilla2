@@ -9,7 +9,7 @@ Summary:	QScintilla2 - a port to Qt of the Scintilla editing component
 Summary(pl.UTF-8):	QScintilla2 - port komponentu edytora Scintilla dla biblioteki Qt
 Name:		qscintilla2
 Version:	2.13.3
-Release:	2
+Release:	3
 License:	GPL v3
 Group:		X11/Libraries
 Source0:	https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla_src-%{version}.tar.gz
@@ -22,6 +22,7 @@ BuildRequires:	qt5-qmake >= 5
 BuildRequires:	Qt5UiTools-devel >= 5
 BuildRequires:	Qt5Widgets-devel >= 5
 BuildRequires:	python3-PyQt5 >= %{pyqt5_ver}
+BuildRequires:	python3-PyQt5-devel >= %{pyqt5_ver}
 BuildRequires:	qt5-build >= 5
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.558
@@ -129,20 +130,6 @@ Qt.
 
 Ten pakiet zawiera wersję dla Qt 5.
 
-%package -n sip-PyQt5-%{name}
-Summary:	Python bindings for the QScintilla2 - SIP development files
-Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne SIP
-Group:		Development/Languages/Python
-Requires:	sip-PyQt5 >= %{pyqt5_ver}
-Obsoletes:	sip-PyQt4-qscintilla2 < 2.13.3
-
-%description -n sip-PyQt5-%{name}
-Python bindings for the QScintilla2 - SIP development files.
-
-%description -n sip-PyQt5-%{name} -l pl.UTF-8
-Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne
-SIP.
-
 %package -n python3-PyQt5-%{name}
 Summary:	Python 3 bindings for the QScintilla2 (PyQt5 version)
 Summary(pl.UTF-8):	Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5)
@@ -158,6 +145,21 @@ Python 3 bindings for the QScintilla2 (PyQt5 version).
 
 %description -n python3-PyQt5-%{name} -l pl.UTF-8
 Wiązania Pythona 3 dla komponentu QScintilla2 (wersja dla PyQt5).
+
+%package -n python3-PyQt5-%{name}-devel
+Summary:	Python bindings for the QScintilla2 - SIP development files
+Summary(pl.UTF-8):	Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne SIP
+Group:		Development/Languages/Python
+Requires:	python3-PyQt5-devel >= %{pyqt5_ver}
+Obsoletes:	sip-PyQt4-qscintilla2 < 2.13.3
+Obsoletes:	sip-PyQt5-qscintilla2 < 2.13.3-3
+
+%description -n python3-PyQt5-%{name}-devel
+Python bindings for the QScintilla2 - SIP development files.
+
+%description -n python3-PyQt5-%{name}-devel -l pl.UTF-8
+Wiązania Pythona dla komponentu QScintilla2 - pliki programistyczne
+SIP.
 
 %prep
 %setup -q -n QScintilla_src-%{version}
@@ -238,12 +240,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/qt5/plugins/designer/libqscintillaplugin.so
 
-%files -n sip-PyQt5-%{name}
-%defattr(644,root,root,755)
-%{py3_sitedir}/PyQt5/bindings/Qsci
-
 %files -n python3-PyQt5-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py3_sitedir}/PyQt5/Qsci.abi3.so
 %{py3_sitedir}/QScintilla-%{version}.dist-info
 %{py3_sitedir}/PyQt5/Qsci.pyi
+
+%files -n python3-PyQt5-%{name}-devel
+%defattr(644,root,root,755)
+%{py3_sitedir}/PyQt5/bindings/Qsci
